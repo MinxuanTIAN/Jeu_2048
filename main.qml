@@ -135,10 +135,25 @@ Window {
             id: rectangle
             width: 450
             height: 450
-            color: gray
+            color: "#808080"
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
 
+            Grid {
+                id: grid
+                anchors.fill: parent
+                spacing: 0
+                rows: 4
+                columns: 4
+
+                Repeater {
+                    model: parent.rows*parent.columns
+                    Tile {
+                        width: grid.width / grid.rows
+                        height: grid.height / grid.columns
+                    }
+                }
+            }
 
         }
 
