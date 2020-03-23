@@ -65,6 +65,20 @@ Window {
                     font.family: "Arial"
                     font.pixelSize: 30
                 }
+                Text {
+                    id: score
+                    width: 130
+                    height: 40
+                    color: "#fff4c9"
+                    text: score
+                    font.family: "Arial"
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 0
+                    font.pixelSize: 30
+                }
             }
 
             Rectangle {
@@ -88,6 +102,21 @@ Window {
                     font.pixelSize: 30
                     font.family: "Arial"
                     font.bold: true
+                }
+
+                Text {
+                    id: bestScore
+                    width: 130
+                    height: 40
+                    color: "#fff4c9"
+                    text: bestScore
+                    font.family: "Arial"
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 0
+                    font.pixelSize: 30
                 }
             }
 
@@ -120,7 +149,7 @@ Window {
             Button {
                 id: newGame
                 width: 120
-                height: 50
+                height: 45
                 text: qsTr("New Game")
                 font.pointSize: 10
                 anchors.right: parent.right
