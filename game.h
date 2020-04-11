@@ -29,8 +29,8 @@ public:
 
         QString ReadStartText();
 
-        Q_INVOKABLE void StepBack();
-        Q_INVOKABLE void StepForward();
+//        Q_INVOKABLE void StepBack();
+//        Q_INVOKABLE void StepForward();
 
 
 
