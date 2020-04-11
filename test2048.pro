@@ -24,16 +24,14 @@ SOURCES += \
     subject.cpp \
     main.cpp \
     board.cpp \
-    game.cpp \
-    mainwindow.cpp
+    game.cpp
 
 HEADERS += \
     carre.h \
     observer.h \
     subject.h \
     game.h \
-    board.h \
-    mainwindow.h
+    board.h
 
 RESOURCES += qml.qrc
 
