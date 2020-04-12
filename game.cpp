@@ -136,7 +136,6 @@ QString Game::tileText(const int &i, const int &j){
 
 void Game::moveUp()
 {
-
     // move
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
@@ -164,7 +163,8 @@ void Game::moveUp()
             }
         }
     }
-//    save();
+    newTile();
+
 }
 
 void Game::moveDown()
@@ -196,7 +196,7 @@ void Game::moveDown()
             }
         }
     }
-    //save();
+    newTile();
 }
 
 void Game::moveLeft()
@@ -228,7 +228,7 @@ void Game::moveLeft()
             }
         }
     }
-    //save();
+    newTile();
 }
 
 void Game::moveRight()
@@ -260,7 +260,7 @@ void Game::moveRight()
             }
         }
     }
-    //save();
+    newTile();
 }
 
 void Game::newTile()

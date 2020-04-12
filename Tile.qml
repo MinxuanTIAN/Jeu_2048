@@ -4,7 +4,10 @@ Item {
     id: tile
     width: 450/4
     height: 450/4
-    property alias elementText: tileText.text
+    property alias tileColor: rectangle.color
+    property alias tileText: tileText.text
+    property alias textColor: tileText.color
+
     Rectangle {
         id: rectangle
         color: "#b48a76"
@@ -16,7 +19,6 @@ Item {
             id: tileText
             x: 44
             y: 50
-            text: qsTr("2")
             font.family: "Arial"
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
