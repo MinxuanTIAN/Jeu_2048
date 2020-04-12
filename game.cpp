@@ -15,6 +15,12 @@ Game::Game(QObject *parent): QObject(parent)
    qsrand(uint(QTime(0,0,0).secsTo(QTime::currentTime())));
 }
 
+int Game::getBestScore()
+{
+    if(score_max>memory){return score_max;}
+    else
+        return memory;
+}
 
 QString Game::readStartText()
 {
@@ -159,6 +165,7 @@ void Game::moveUp()
                 board[i][j]=2*board[i][j];
                 board[i][j+1]=0;
                 score+=board[i][j];
+                score_max=score;
                 for (int k = j+2; k < 4; k++) {
                     board[i][k-1]=board[i][k];
                     board[i][k]=0;
@@ -194,6 +201,7 @@ void Game::moveDown()
                 board[i][j]=2*board[i][j];
                 board[i][j-1]=0;
                 score+=board[i][j];
+                score_max=score;
                 for (int k = j-2; k >= 0; k--) {
                     board[i][k+1]=board[i][k];
                     board[i][k]=0;
@@ -229,6 +237,7 @@ void Game::moveLeft()
                 board[i][j]=2*board[i][j];
                 board[i+1][j]=0;
                 score+=board[i][j];
+                score_max=score;
                 for (int k = i+2; k < 4; k++) {
                     board[k-1][j]=board[k][j];
                     board[k][j]=0;
@@ -264,6 +273,7 @@ void Game::moveRight()
                 board[i][j]=2*board[i][j];
                 board[i-1][j]=0;
                 score+=board[i][j];
+                score_max=score;
                 for (int k = i-2; k >= 0; k--) {
                     board[k+1][j]=board[k][j];
                     board[k][j]=0;
@@ -326,6 +336,8 @@ int Game::gameOver()
            }
        }
       return 1;   //game over
+      memory=score;
+      score=1;
   }
 }
 
@@ -336,6 +348,8 @@ int Game::won()
         for (int j = 0; j < 4; j++){
             if (board[i][j]==2048){
                 return 1;   //game won
+                memory=score;
+                score=0;
             }
         }
     }
@@ -354,11 +368,12 @@ void Game::newGame()
     //save();
 }
 
-void Game::undo()
+void Game::undo()   // return to the last move
 {
     if(lastboard){
         memcpy(board,lastboard,sizeof(lastboard));
         score=lastscore;
+        score_max=lastscore;
     }
 }
 

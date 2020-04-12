@@ -44,6 +44,7 @@ Window {
                 board.num.itemAt(iter).textColor=command.textColor(iter%4,iter/4);
             }
             scoreText=command.getScore();
+            bestScoreText=command.getBestScore();
         }
 
         Keys.onPressed: {

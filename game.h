@@ -30,6 +30,7 @@ public:
     Q_INVOKABLE int won();
     Q_INVOKABLE void newGame();
     Q_INVOKABLE int getScore() const { return score; }
+    Q_INVOKABLE int getBestScore() ;/*const { return score_max; }*/
     Q_INVOKABLE void undo();
 
     QString readStartText();
@@ -47,6 +48,7 @@ private:
     int board[4][4];
     int score = 0;
     int score_max = 0;
+    int memory=0;   // to store the score of last ground
     int lastscore=0;
     int lastboard[4][4];
     int nb=0;
