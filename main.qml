@@ -13,8 +13,9 @@ Window {
     title: qsTr("Jeu du 2048")
 
 
-    Column {
-        id: column
+    /*Column*/
+    Item {
+        id: root
         x: 90
         y: 50
         width: 466
@@ -24,10 +25,156 @@ Window {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
 
-        Row {
+    function clearWindow(){
+            tile1.color = "#CDC1B5";
+            text1.text = "";
+            tile2.color = "#CDC1B5";
+            text2.text = "";
+            tile3.color = "#CDC1B5";
+            text3.text = "";
+            tile4.color = "#CDC1B5";
+            text4.text = "";
+            tile5.color = "#CDC1B5";
+            text5.text = "";
+            tile6.color = "#CDC1B5";
+            text6.text = "";
+            tile7.color = "#CDC1B5";
+            text7.text = "";
+            tile8.color = "#CDC1B5";
+            text8.text = "";
+            tile9.color = "#CDC1B5";
+            text9.text = "";
+            tile10.color = "#CDC1B5";
+            text10.text = "";
+            tile11.color = "#CDC1B5";
+            text11.text = "";
+            tile12.color = "#CDC1B5";
+            text12.text = "";
+            tile13.color = "#CDC1B5";
+            text13.text = "";
+            tile14.color = "#CDC1B5";
+            text14.text = "";
+            tile15.color = "#CDC1B5";
+            text15.text = "";
+            tile16.color = "#CDC1B5";
+            text16.text = "";
+        }
+
+    function updateWindow(){
+        clearWindow();
+        tile1.color = command.tileColor(0,0);
+        text1.text = command.tileText(0,0);
+        text1.color = command.textColor(0,0);
+
+        tile2.color = command.tileColor(1,0);
+        text2.text = command.tileText(1,0);
+        text2.color = command.textColor(1,0);
+
+        tile3.color = command.tileColor(2,0);
+        text3.text = command.tileText(2,0);
+        text3.color = command.textColor(2,0);
+
+        tile4.color = command.tileColor(3,0);
+        text4.text = command.tileText(3,0);
+        text4.color = command.textColor(3,0);
+
+        tile5.color = command.tileColor(0,1);
+        text5.text = command.tileText(0,1);
+        text5.color = command.textColor(0,1);
+
+        tile6.color = command.tileColor(1,1);
+        text6.text = command.tileText(1,1);
+        text6.color = command.textColor(1,1);
+
+        tile7.color = command.tileColor(2,1);
+        text7.text = command.tileText(2,1);
+        text7.color = command.textColor(2,1);
+
+        tile8.color = command.tileColor(3,1);
+        text8.text = command.tileText(3,1);
+        text8.color = command.textColor(3,1);
+
+        tile9.color = command.tileColor(0,2);
+        text9.text = command.tileText(0,2);
+        text9.color = command.textColor(0,2);
+
+        tile10.color = command.tileColor(1,2);
+        text10.text = command.tileText(1,2);
+        text10.color = command.textColor(1,2);
+
+        tile11.color = command.tileColor(2,2);
+        text11.text = command.tileText(2,2);
+        text11.color = command.textColor(2,2);
+
+        tile12.color = command.tileColor(3,2);
+        text12.text = command.tileText(3,2);
+        text12.color = command.textColor(3,2);
+
+        tile13.color = command.tileColor(0,3);
+        text13.text = command.tileText(0,3);
+        text13.color = command.textColor(0,3);
+
+        tile14.color = command.tileColor(1,3);
+        text14.text = command.tileText(1,3);
+        text14.color = command.textColor(1,3);
+
+        tile15.color = command.tileColor(2,3);
+        text15.text = command.tileText(2,3);
+        text15.color = command.textColor(2,3);
+
+        tile16.color = command.tileColor(3,3);
+        text16.text = command.tileText(3,3);
+        text16.color = command.textColor(3,3);
+    }
+
+
+    Keys.onPressed: {
+        switch(event.key) {
+        case Qt.Key_Up:
+            command.moveUp();
+            root.updateWindow();
+            break;
+        case Qt.Key_Down:
+            command.moveDown();
+            root.updateWindow();
+            break;
+        case Qt.Key_Left:
+            command.moveLeft();
+            root.updateWindow();
+            break;
+        case Qt.Key_Right:
+            command.moveRight();
+            root.updateWindow();
+            break;
+        default:
+            break;
+        }
+        Game.newTile();
+        root.updateWindow();
+        if (command.gameOver()===1){
+            gameOverMessageDialog.title = "Game Over"
+            gameOverMessageDialog.text = "Game Over!"
+            gameOverMessageDialog.visible = true
+        }
+        if (command.won()===1){
+            winMessageDialog.title = "Win"
+            winMessageDialog.text = "You win!"
+            winMessageDialog.visible = true
+        }
+
+    }
+
+
+
+
+//        Row
+        Rectangle {
             id: row1
+            x: 0
+            y: 0
             width: 450
             height: 100
+            color: "#e9c9c9"
 
             Text {
                 id: gameName
@@ -72,7 +219,7 @@ Window {
                     width: 130
                     height: 40
                     color: "#fff4c9"
-                    text: score
+                    text: qsTr("à remplir")
                     font.family: "Arial"
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
@@ -111,7 +258,7 @@ Window {
                     width: 130
                     height: 40
                     color: "#fff4c9"
-                    text: bestScore
+                    text: qsTr("à remplir")
                     font.family: "Arial"
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
@@ -124,12 +271,13 @@ Window {
 
         }
 
-
-        Row {
+       //Row
+        Rectangle{
             id: row2
             y: 100
             width: 450
             height: 50
+            color: "#e9c9c9"
 
             Text {
                 id: instruction
@@ -166,7 +314,7 @@ Window {
                     width: 120
                     height: 45
                     onClicked: {
-                        Game.slot_begin();
+                        command.slot_begin();
                         root.updateWindow();
                     }
             }
@@ -174,112 +322,6 @@ Window {
 
 
         //tiles
-
-        function updateWindow(){
-//            clearWindow();
-            tile1.color = Game.tileColor(0,0);
-            text1.text = Game.tileText(0,0);
-            text1.color = Game.textColor(0,0);
-
-            tile2.color = Game.tileColor(1,0);
-            text2.text = Game.tileText(1,0);
-            text2.color = Game.textColor(1,0);
-
-            tile3.color = Game.tileColor(2,0);
-            text3.text = Game.tileText(2,0);
-            text3.color = Game.textColor(2,0);
-
-            tile4.color = Game.tileColor(3,0);
-            text4.text = Game.tileText(3,0);
-            text4.color = Game.textColor(3,0);
-
-            tile5.color = Game.tileColor(0,1);
-            text5.text = Game.tileText(0,1);
-            text5.color = Game.textColor(0,1);
-
-            tile6.color = Game.tileColor(1,1);
-            text6.text = Game.tileText(1,1);
-            text6.color = Game.textColor(1,1);
-
-            tile7.color = Game.tileColor(2,1);
-            text7.text = Game.tileText(2,1);
-            text7.color = Game.textColor(2,1);
-
-            tile8.color = Game.tileColor(3,1);
-            text8.text = Game.tileText(3,1);
-            text8.color = Game.textColor(3,1);
-
-            tile9.color = Game.tileColor(0,2);
-            text9.text = Game.tileText(0,2);
-            text9.color = Game.textColor(0,2);
-
-            tile10.color = Game.tileColor(1,2);
-            text10.text = Game.tileText(1,2);
-            text10.color = Game.textColor(1,2);
-
-            tile11.color = Game.tileColor(2,2);
-            text11.text = Game.tileText(2,2);
-            text11.color = Game.textColor(2,2);
-
-            tile12.color = Game.tileColor(3,2);
-            text12.text = Game.tileText(3,2);
-            text12.color = Game.textColor(3,2);
-
-            tile13.color = Game.tileColor(0,3);
-            text13.text = Game.tileText(0,3);
-            text13.color = Game.textColor(0,3);
-
-            tile14.color = Game.tileColor(1,3);
-            text14.text = Game.tileText(1,3);
-            text14.color = Game.textColor(1,3);
-
-            tile15.color = Game.tileColor(2,3);
-            text15.text = gGame.tileText(2,3);
-            text15.color = Game.textColor(2,3);
-
-            tile16.color = Game.tileColor(3,3);
-            text16.text = Game.tileText(3,3);
-            text16.color = Game.textColor(3,3);
-        }
-
-
-        Keys.onPressed: {
-            switch(event.key) {
-            case Qt.Key_Up:
-                Game.moveUp();
-                root.updateWindow();
-                break;
-            case Qt.Key_Down:
-                Game.moveDown();
-                root.updateWindow();
-                break;
-            case Qt.Key_Left:
-                Game.moveLeft();
-                root.updateWindow();
-                break;
-            case Qt.Key_Right:
-                Game.moveRight();
-                root.updateWindow();
-                break;
-            default:
-                break;
-            }
-            Game.newTile();
-            root.updateWindow();
-            if (Game.gameOver()===1){
-                gameOverMessageDialog.title = "Game Over"
-                gameOverMessageDialog.text = "Game Over!"
-                gameOverMessageDialog.visible = true
-            }
-            if (gameController.won()===1){
-                winMessageDialog.title = "Win"
-                winMessageDialog.text = "You win!"
-                winMessageDialog.visible = true
-            }
-
-        }
-
-
 
 
 
@@ -321,11 +363,11 @@ Window {
 
     Rectangle {
         id: backgroud
-        x: 11
-        y: 235
+        x: -37
+        y: 165
         width: 540
         height: 474
-        color: "#cdbaba"
+        color: "#d69090"
 
         Rectangle {
             id: tile1
@@ -333,7 +375,7 @@ Window {
             y: 8
             width: 125
             height: 110
-            color: Game.tileColor(0,0)
+            color: command.tileColor(0,0)
 
             Text {
                 id: text1
@@ -343,7 +385,7 @@ Window {
                 y: 0
                 width: 125
                 height: 110
-                text: "#Game.tileText(0,0)#"
+                text: "#command.tileText(0,0)#"
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
@@ -356,7 +398,7 @@ Window {
             y: 8
             width: 125
             height: 110
-            color: Game.tileColor(1,0)
+            color: command.tileColor(1,0)
 
             Text {
                 id: text2
@@ -366,7 +408,7 @@ Window {
                 y: 0
                 width: 125
                 height: 110
-                text: "#Game.tileText(1,0)#"
+                text: "#command.tileText(1,0)#"
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
@@ -379,7 +421,7 @@ Window {
             y: 8
             width: 125
             height: 110
-            color: Game.tileColor(2,0)
+            color: command.tileColor(2,0)
 
             Text {
                 id: text3
@@ -389,7 +431,7 @@ Window {
                 y: 0
                 width: 125
                 height: 110
-                text: "#Game.tileText(2,0)#"
+                text: "#command.tileText(2,0)#"
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
@@ -402,7 +444,7 @@ Window {
             y: 8
             width: 125
             height: 110
-            color: Game.tileColor(3,0)
+            color: command.tileColor(3,0)
 
             Text {
                 id: text4
@@ -412,7 +454,7 @@ Window {
                 y: 0
                 width: 125
                 height: 110
-                text: "#Game.tileText(3,0)#"
+                text: "#command.tileText(3,0)#"
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
@@ -425,7 +467,7 @@ Window {
             y: 124
             width: 125
             height: 110
-            color: Game.tileColor(0,1)
+            color: command.tileColor(0,1)
 
             Text {
                 id: text5
@@ -435,7 +477,7 @@ Window {
                 y: 0
                 width: 125
                 height: 110
-                text: "#Game.tileText(0,1)#"
+                text: "#command.tileText(0,1)#"
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
@@ -448,7 +490,7 @@ Window {
             y: 124
             width: 125
             height: 110
-            color: Game.tileColor(1,1)
+            color: command.tileColor(1,1)
 
             Text {
                 id: text6
@@ -458,7 +500,7 @@ Window {
                 y: 0
                 width: 125
                 height: 110
-                text: "#Game.tileText(1,1)#"
+                text: "#command.tileText(1,1)#"
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
@@ -471,7 +513,7 @@ Window {
             y: 124
             width: 125
             height: 110
-            color: Game.tileColor(1,2)
+            color: command.tileColor(1,2)
 
             Text {
                 id: text7
@@ -481,7 +523,7 @@ Window {
                 y: 0
                 width: 125
                 height: 110
-                text: "#Game.tileText(1,2)#"
+                text: "#command.tileText(1,2)#"
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
@@ -494,7 +536,7 @@ Window {
             y: 124
             width: 125
             height: 110
-            color: Game.tileColor(1,3)
+            color: command.tileColor(1,3)
 
             Text {
                 id: text8
@@ -504,7 +546,7 @@ Window {
                 y: 0
                 width: 125
                 height: 110
-                text: "#Game.tileText(1,3)#"
+                text: "#command.tileText(1,3)#"
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
@@ -517,7 +559,7 @@ Window {
             y: 240
             width: 125
             height: 110
-            color: Game.tileColor(0,2)
+            color: command.tileColor(0,2)
 
             Text {
                 id: text9
@@ -527,7 +569,7 @@ Window {
                 y: 0
                 width: 125
                 height: 110
-                text: "#Game.tileText(0,2)#"
+                text: "#command.tileText(0,2)#"
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
@@ -540,7 +582,7 @@ Window {
             y: 240
             width: 125
             height: 110
-            color: Game.tileColor(1,2)
+            color: command.tileColor(1,2)
 
             Text {
                 id: text10
@@ -550,7 +592,7 @@ Window {
                 y: 0
                 width: 125
                 height: 110
-                text: "#Game.tileText(1,2)#"
+                text: "#command.tileText(1,2)#"
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
@@ -563,7 +605,7 @@ Window {
             y: 240
             width: 125
             height: 110
-            color: Game.tileColor(2,2)
+            color: command.tileColor(2,2)
 
             Text {
                 id: text11
@@ -573,7 +615,7 @@ Window {
                 y: 0
                 width: 125
                 height: 110
-                text: "#Game.tileText(2,2)#"
+                text: "#command.tileText(2,2)#"
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
@@ -586,7 +628,7 @@ Window {
             y: 240
             width: 125
             height: 110
-            color: Game.tileColor(3,2)
+            color: command.tileColor(3,2)
 
             Text {
                 id: text12
@@ -596,7 +638,7 @@ Window {
                 y: 0
                 width: 125
                 height: 110
-                text: "#Game.tileText(3,2)#"
+                text: "#command.tileText(3,2)#"
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
@@ -609,7 +651,7 @@ Window {
             y: 356
             width: 125
             height: 110
-            color: Game.tileColor(0,3)
+            color: command.tileColor(0,3)
 
             Text {
                 id: text13
@@ -619,7 +661,7 @@ Window {
                 y: 0
                 width: 125
                 height: 110
-                text: "#Game.tileText(0,3)#"
+                text: "#command.tileText(0,3)#"
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
@@ -632,7 +674,7 @@ Window {
             y: 356
             width: 125
             height: 110
-            color: Game.tileColor(1,3)
+            color: command.tileColor(1,3)
 
             Text {
                 id: text14
@@ -642,7 +684,7 @@ Window {
                 y: 0
                 width: 125
                 height: 110
-                text: "#Game.tileText(1,3)#"
+                text: "#command.tileText(1,3)#"
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
@@ -650,12 +692,36 @@ Window {
         }
 
         Rectangle {
+            id: tile15
+            x: 273
+            y: 356
+            width: 125
+            height: 110
+            color: command.tileColor(2,3)
+
+            Text {
+                id: text15
+                font.family: "Verdana"
+                font.bold: true
+                x: 1
+                y: 0
+                width: 125
+                height: 110
+                text: "#command.tileText(2,3)#"
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                font.pixelSize: 15
+            }
+
+    }
+
+        Rectangle {
             id: tile16
             x: 404
             y: 356
             width: 125
             height: 110
-            color: Game.tileColor(3,3)
+            color: command.tileColor(3,3)
 
             Text {
                 id: text16
@@ -665,42 +731,17 @@ Window {
                 y: 0
                 width: 125
                 height: 110
-                text: "#Game.tileText(3,3)#"
+                text: "#command.tileText(3,3)#"
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: 15
             }
         }
-
-        Rectangle {
-            id: tile15
-            x: 284
-            y: 591
-            width: 125
-            height: 110
-            color: Game.tileColor(2,3)
-
-            Text {
-                id: text15
-                font.family: "Verdana"
-                font.bold: true
-                x: 0
-                y: 0
-                width: 125
-                height: 110
-                text: "#Game.tileText(2,3)#"
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: 15
-            }
-
-    }
-
         MessageDialog {
             id: gameOverMessageDialog
             visible: false
             onAccepted: {
-                gameController.newGame();
+                command.newGame();
                 root.updateWindow();
             }
         }
@@ -708,7 +749,7 @@ Window {
             id: winMessageDialog
             visible: false
             onAccepted: {
-                gameController.newGame();
+                command.newGame();
                 root.updateWindow();
             }
         }

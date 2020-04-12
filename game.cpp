@@ -16,7 +16,7 @@ Game::Game(QObject *parent): QObject(parent)
 }
 
 
-QString Game::ReadStartText()
+QString Game::readStartText()
 {
     return Text_begin;
 }
@@ -30,8 +30,8 @@ void Game::slot_begin(){
     }
     Text_begin="Start again";
     begin();
-    int randi1=qrand()%4; // 0 1 2 3
-    int randj1=qrand()%4; // 0 1 2 3
+    int randi1=qrand()%4; // random number between 0 and 3
+    int randj1=qrand()%4;
     board[randi1][randj1]=2;
     int randi2=randi1;
     int randj2=randj1;
@@ -299,6 +299,10 @@ int Game::gameOver()
     }
 
     // game is over?
+
+ //    if (num==0){return 1;}
+ //    else return 0;
+
     if (num==0){
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 3; j++) {

@@ -11,13 +11,14 @@ using namespace std;
 class Game: public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString sText READ ReadStartText NOTIFY begin)
+    Q_PROPERTY(QString sText READ readStartText NOTIFY begin)
 
 public:
     Game(QObject *parent = nullptr);
     Q_INVOKABLE QColor tileColor(const int &i, const int &j);
     Q_INVOKABLE QColor textColor(const int &i, const int &j);
     Q_INVOKABLE QString tileText(const int &i, const int &j);
+
         Q_INVOKABLE void moveUp();
         Q_INVOKABLE void moveDown();
         Q_INVOKABLE void moveLeft();
@@ -27,7 +28,7 @@ public:
         Q_INVOKABLE int won();
         Q_INVOKABLE void newGame();
 
-        QString ReadStartText();
+        QString readStartText();
 
 //        Q_INVOKABLE void StepBack();
 //        Q_INVOKABLE void StepForward();
@@ -48,7 +49,7 @@ private:
     int score = 0;
     int score_max = 0;
     int *score_liste;
-    int store;
+    int **store;
     int nb=0;
     QString Text_begin;
 
