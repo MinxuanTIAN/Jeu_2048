@@ -7,8 +7,8 @@ import QtQuick.Dialogs 1.1
 Window {
     id: mainWindow
     visible: true
-    width: 560
-    height: 750
+    width: 550
+    height: 700
     color: "#fff4c9"
     property alias bestScoreText: bestScore.text
     property alias scoreText: score.text
@@ -99,9 +99,10 @@ Window {
                 height: 60
                 color: "#8f480a"
                 text: qsTr("2048")
+                anchors.verticalCenterOffset: 12
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
-                anchors.leftMargin: 0
+                anchors.leftMargin: 8
                 font.bold: true
                 font.family: "Arial"
                 verticalAlignment: Text.AlignVCenter
@@ -203,7 +204,7 @@ Window {
                 text: qsTr("Undo")
                 font.bold: true
                 font.family: "Arial"
-                font.pointSize: 10
+                font.pointSize: 15
                 MouseArea {
                     id: undoMouseArea
                     x: 0
@@ -223,7 +224,7 @@ Window {
                 width: 130
                 height: 45
                 text: qsTr("New Game")
-                font.pointSize: 10
+                font.pointSize: 15
                 font.bold: true
                 font.family: "Arial"
 
@@ -238,6 +239,21 @@ Window {
                         root.updateWindow();
                     }
                 }
+            }
+
+            Text {
+                id: element
+                x: 44
+                y: 8
+                width: 93
+                height: 40
+                color: "#8f480a"
+                text: qsTr("Come and play now!")
+                font.family: "Arial"
+                font.italic: true
+                font.bold: true
+                horizontalAlignment: Text.AlignHCenter
+                font.pixelSize: 16
             }
 
 
