@@ -163,8 +163,6 @@ void Game::moveUp()
             }
         }
     }
-    newTile();
-
 }
 
 void Game::moveDown()
@@ -196,7 +194,6 @@ void Game::moveDown()
             }
         }
     }
-    newTile();
 }
 
 void Game::moveLeft()
@@ -228,7 +225,6 @@ void Game::moveLeft()
             }
         }
     }
-    newTile();
 }
 
 void Game::moveRight()
@@ -260,7 +256,6 @@ void Game::moveRight()
             }
         }
     }
-    newTile();
 }
 
 void Game::newTile()
@@ -290,6 +285,7 @@ void Game::newTile()
 int Game::gameOver()
 {
     int num = 0;
+    // count empty cell number
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             if (board[i][j]==0){
@@ -297,12 +293,7 @@ int Game::gameOver()
             }
         }
     }
-
-    // game is over?
-
- //    if (num==0){return 1;}
- //    else return 0;
-
+    // verify whether the cells can still fuse
     if (num==0){
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 3; j++) {

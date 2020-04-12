@@ -22,9 +22,4 @@ int main(int argc, char *argv[])
     engine.load(url);
 
     return app.exec();
-
-//    QApplication a(argc, argv);
-//    MainWindow w;
-//    w.show();
-//    return a.exec();
 }

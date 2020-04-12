@@ -10,6 +10,8 @@ Window {
     width: 560
     height: 750
     color: "#fff4c9"
+    property alias bestScoreText: bestScore.text
+    property alias scoreText: score.text
     title: qsTr("Jeu du 2048")
 
 
@@ -41,6 +43,7 @@ Window {
                 board.num.itemAt(iter).tileText=command.tileText(iter%4,iter/4);
                 board.num.itemAt(iter).textColor=command.textColor(iter%4,iter/4);
             }
+            scoreText=command.getScore();
         }
 
         Keys.onPressed: {
@@ -64,7 +67,7 @@ Window {
             default:
                 break;
             }
-            Game.newTile();
+            command.newTile();
             root.updateWindow();
             if (command.gameOver()===1){
                 gameOverMessageDialog.title = "Game Over"
@@ -81,8 +84,8 @@ Window {
 
 
 
-
-        //        Row
+// Principal components
+        // Row
         Rectangle {
             id: row1
             x: 0
@@ -118,7 +121,6 @@ Window {
                 anchors.rightMargin: 140
 
                 Text {
-                    id: textScore
                     width: 130
                     height: 40
                     color: "#fff4c9"
@@ -156,7 +158,6 @@ Window {
                 anchors.rightMargin: 0
 
                 Text {
-                    id: textBest
                     width: 130
                     height: 40
                     color: "#fff4c9"
@@ -186,7 +187,7 @@ Window {
 
         }
 
-        //Row
+        //Row2
         Rectangle{
             id: row2
             y: 100
@@ -274,383 +275,6 @@ Window {
 
         }
 
-
-        //    Rectangle {
-        //        id: backgroud
-        //        x: -37
-        //        y: 165
-        //        width: 540
-        //        height: 474
-        //        color: "#d69090"
-
-        //        Rectangle {
-        //            id: tile1
-        //            x: 10
-        //            y: 8
-        //            width: 125
-        //            height: 110
-        //            color: command.tileColor(0,0)
-
-        //            Text {
-        //                id: text1
-        //                font.family: "Verdana"
-        //                font.bold: true
-        //                x: 0
-        //                y: 0
-        //                width: 125
-        //                height: 110
-        //                text: "#command.tileText(0,0)#"
-        //                verticalAlignment: Text.AlignVCenter
-        //                horizontalAlignment: Text.AlignHCenter
-        //                font.pixelSize: 15
-        //            }
-        //        }
-
-        //        Rectangle {
-        //            id: tile2
-        //            x: 142
-        //            y: 8
-        //            width: 125
-        //            height: 110
-        //            color: command.tileColor(1,0)
-
-        //            Text {
-        //                id: text2
-        //                font.family: "Verdana"
-        //                font.bold: true
-        //                x: 0
-        //                y: 0
-        //                width: 125
-        //                height: 110
-        //                text: "#command.tileText(1,0)#"
-        //                verticalAlignment: Text.AlignVCenter
-        //                horizontalAlignment: Text.AlignHCenter
-        //                font.pixelSize: 15
-        //            }
-        //        }
-
-        //        Rectangle {
-        //            id: tile3
-        //            x: 273
-        //            y: 8
-        //            width: 125
-        //            height: 110
-        //            color: command.tileColor(2,0)
-
-        //            Text {
-        //                id: text3
-        //                font.family: "Verdana"
-        //                font.bold: true
-        //                x: 0
-        //                y: 0
-        //                width: 125
-        //                height: 110
-        //                text: "#command.tileText(2,0)#"
-        //                verticalAlignment: Text.AlignVCenter
-        //                horizontalAlignment: Text.AlignHCenter
-        //                font.pixelSize: 15
-        //            }
-        //        }
-
-        //        Rectangle {
-        //            id: tile4
-        //            x: 404
-        //            y: 8
-        //            width: 125
-        //            height: 110
-        //            color: command.tileColor(3,0)
-
-        //            Text {
-        //                id: text4
-        //                font.family: "Verdana"
-        //                font.bold: true
-        //                x: 0
-        //                y: 0
-        //                width: 125
-        //                height: 110
-        //                text: "#command.tileText(3,0)#"
-        //                verticalAlignment: Text.AlignVCenter
-        //                horizontalAlignment: Text.AlignHCenter
-        //                font.pixelSize: 15
-        //            }
-        //        }
-
-        //        Rectangle {
-        //            id: tile5
-        //            x: 10
-        //            y: 124
-        //            width: 125
-        //            height: 110
-        //            color: command.tileColor(0,1)
-
-        //            Text {
-        //                id: text5
-        //                font.family: "Verdana"
-        //                font.bold: true
-        //                x: 0
-        //                y: 0
-        //                width: 125
-        //                height: 110
-        //                text: "#command.tileText(0,1)#"
-        //                verticalAlignment: Text.AlignVCenter
-        //                horizontalAlignment: Text.AlignHCenter
-        //                font.pixelSize: 15
-        //            }
-        //        }
-
-        //        Rectangle {
-        //            id: tile6
-        //            x: 142
-        //            y: 124
-        //            width: 125
-        //            height: 110
-        //            color: command.tileColor(1,1)
-
-        //            Text {
-        //                id: text6
-        //                font.family: "Verdana"
-        //                font.bold: true
-        //                x: 0
-        //                y: 0
-        //                width: 125
-        //                height: 110
-        //                text: "#command.tileText(1,1)#"
-        //                verticalAlignment: Text.AlignVCenter
-        //                horizontalAlignment: Text.AlignHCenter
-        //                font.pixelSize: 15
-        //            }
-        //        }
-
-        //        Rectangle {
-        //            id: tile7
-        //            x: 273
-        //            y: 124
-        //            width: 125
-        //            height: 110
-        //            color: command.tileColor(1,2)
-
-        //            Text {
-        //                id: text7
-        //                font.family: "Verdana"
-        //                font.bold: true
-        //                x: 0
-        //                y: 0
-        //                width: 125
-        //                height: 110
-        //                text: "#command.tileText(1,2)#"
-        //                verticalAlignment: Text.AlignVCenter
-        //                horizontalAlignment: Text.AlignHCenter
-        //                font.pixelSize: 15
-        //            }
-        //        }
-
-        //        Rectangle {
-        //            id: tile8
-        //            x: 404
-        //            y: 124
-        //            width: 125
-        //            height: 110
-        //            color: command.tileColor(1,3)
-
-        //            Text {
-        //                id: text8
-        //                font.family: "Verdana"
-        //                font.bold: true
-        //                x: 0
-        //                y: 0
-        //                width: 125
-        //                height: 110
-        //                text: "#command.tileText(1,3)#"
-        //                verticalAlignment: Text.AlignVCenter
-        //                horizontalAlignment: Text.AlignHCenter
-        //                font.pixelSize: 15
-        //            }
-        //        }
-
-        //        Rectangle {
-        //            id: tile9
-        //            x: 10
-        //            y: 240
-        //            width: 125
-        //            height: 110
-        //            color: command.tileColor(0,2)
-
-        //            Text {
-        //                id: text9
-        //                font.family: "Verdana"
-        //                font.bold: true
-        //                x: 0
-        //                y: 0
-        //                width: 125
-        //                height: 110
-        //                text: "#command.tileText(0,2)#"
-        //                verticalAlignment: Text.AlignVCenter
-        //                horizontalAlignment: Text.AlignHCenter
-        //                font.pixelSize: 15
-        //            }
-        //        }
-
-        //        Rectangle {
-        //            id: tile10
-        //            x: 142
-        //            y: 240
-        //            width: 125
-        //            height: 110
-        //            color: command.tileColor(1,2)
-
-        //            Text {
-        //                id: text10
-        //                font.family: "Verdana"
-        //                font.bold: true
-        //                x: 0
-        //                y: 0
-        //                width: 125
-        //                height: 110
-        //                text: "#command.tileText(1,2)#"
-        //                verticalAlignment: Text.AlignVCenter
-        //                horizontalAlignment: Text.AlignHCenter
-        //                font.pixelSize: 15
-        //            }
-        //        }
-
-        //        Rectangle {
-        //            id: tile11
-        //            x: 273
-        //            y: 240
-        //            width: 125
-        //            height: 110
-        //            color: command.tileColor(2,2)
-
-        //            Text {
-        //                id: text11
-        //                font.family: "Verdana"
-        //                font.bold: true
-        //                x: 0
-        //                y: 0
-        //                width: 125
-        //                height: 110
-        //                text: "#command.tileText(2,2)#"
-        //                verticalAlignment: Text.AlignVCenter
-        //                horizontalAlignment: Text.AlignHCenter
-        //                font.pixelSize: 15
-        //            }
-        //        }
-
-        //        Rectangle {
-        //            id: tile12
-        //            x: 404
-        //            y: 240
-        //            width: 125
-        //            height: 110
-        //            color: command.tileColor(3,2)
-
-        //            Text {
-        //                id: text12
-        //                font.family: "Verdana"
-        //                font.bold: true
-        //                x: 0
-        //                y: 0
-        //                width: 125
-        //                height: 110
-        //                text: "#command.tileText(3,2)#"
-        //                verticalAlignment: Text.AlignVCenter
-        //                horizontalAlignment: Text.AlignHCenter
-        //                font.pixelSize: 15
-        //            }
-        //        }
-
-        //        Rectangle {
-        //            id: tile13
-        //            x: 10
-        //            y: 356
-        //            width: 125
-        //            height: 110
-        //            color: command.tileColor(0,3)
-
-        //            Text {
-        //                id: text13
-        //                font.family: "Verdana"
-        //                font.bold: true
-        //                x: 0
-        //                y: 0
-        //                width: 125
-        //                height: 110
-        //                text: "#command.tileText(0,3)#"
-        //                verticalAlignment: Text.AlignVCenter
-        //                horizontalAlignment: Text.AlignHCenter
-        //                font.pixelSize: 15
-        //            }
-        //        }
-
-        //        Rectangle {
-        //            id: tile14
-        //            x: 142
-        //            y: 356
-        //            width: 125
-        //            height: 110
-        //            color: command.tileColor(1,3)
-
-        //            Text {
-        //                id: text14
-        //                font.family: "Verdana"
-        //                font.bold: true
-        //                x: 0
-        //                y: 0
-        //                width: 125
-        //                height: 110
-        //                text: "#command.tileText(1,3)#"
-        //                verticalAlignment: Text.AlignVCenter
-        //                horizontalAlignment: Text.AlignHCenter
-        //                font.pixelSize: 15
-        //            }
-        //        }
-
-        //        Rectangle {
-        //            id: tile15
-        //            x: 273
-        //            y: 356
-        //            width: 125
-        //            height: 110
-        //            color: command.tileColor(2,3)
-
-        //            Text {
-        //                id: text15
-        //                font.family: "Verdana"
-        //                font.bold: true
-        //                x: 1
-        //                y: 0
-        //                width: 125
-        //                height: 110
-        //                text: "#command.tileText(2,3)#"
-        //                verticalAlignment: Text.AlignVCenter
-        //                horizontalAlignment: Text.AlignHCenter
-        //                font.pixelSize: 15
-        //            }
-
-        //    }
-
-        //        Rectangle {
-        //            id: tile16
-        //            x: 404
-        //            y: 356
-        //            width: 125
-        //            height: 110
-        //            color: command.tileColor(3,3)
-
-        //            Text {
-        //                id: text16
-        //                font.family: "Verdana"
-        //                font.bold: true
-        //                x: 0
-        //                y: 0
-        //                width: 125
-        //                height: 110
-        //                text: "#command.tileText(3,3)#"
-        //                verticalAlignment: Text.AlignVCenter
-        //                horizontalAlignment: Text.AlignHCenter
-        //                font.pixelSize: 15
-        //            }
-        //        }
         MessageDialog {
             id: gameOverMessageDialog
             visible: false

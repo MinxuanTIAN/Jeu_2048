@@ -27,6 +27,7 @@ public:
         Q_INVOKABLE int gameOver();
         Q_INVOKABLE int won();
         Q_INVOKABLE void newGame();
+    Q_INVOKABLE int getScore() const { return score; }
 
         QString readStartText();
 
@@ -36,7 +37,7 @@ public:
 
 
 //    bool isGameOver() const { return gameOver; }
-//    int getScore() const { return score; }
+
 //    Board* getBoard() const { return board; }
 
 //    void restart();
