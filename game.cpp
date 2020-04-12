@@ -161,6 +161,7 @@ void Game::moveUp()
                 score+=board[i][j];
                 for (int k = j+2; k < 4; k++) {
                     board[i][k-1]=board[i][k];
+                    board[i][k]=0;
                 }
             }
         }
@@ -195,6 +196,7 @@ void Game::moveDown()
                 score+=board[i][j];
                 for (int k = j-2; k >= 0; k--) {
                     board[i][k+1]=board[i][k];
+                    board[i][k]=0;
                 }
             }
         }
@@ -229,6 +231,7 @@ void Game::moveLeft()
                 score+=board[i][j];
                 for (int k = i+2; k < 4; k++) {
                     board[k-1][j]=board[k][j];
+                    board[k][j]=0;
                 }
             }
         }
@@ -263,6 +266,7 @@ void Game::moveRight()
                 score+=board[i][j];
                 for (int k = i-2; k >= 0; k--) {
                     board[k+1][j]=board[k][j];
+                    board[k][j]=0;
                 }
             }
         }
