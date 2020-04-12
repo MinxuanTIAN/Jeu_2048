@@ -16,4 +16,5 @@ Dans notre projet, nous avons reussi à réaliser l'opération de base du jeu et
 
 ## Opération
 Les quatre touches de direction du clavier contrôlent la direction (UP, DOWN, LEFT, RIGHT).
+
 Un bouton pour démarrer un nouveau jeu et l'autre pour annuler l'opération précédente.
