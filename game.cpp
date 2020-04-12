@@ -15,39 +15,6 @@ Game::Game(QObject *parent): QObject(parent)
    qsrand(uint(QTime(0,0,0).secsTo(QTime::currentTime())));
 }
 
-int Game::getBestScore()
-{
-    if(score_max>memory){return score_max;}
-    else
-        return memory;
-}
-
-QString Game::readStartText()
-{
-    return Text_begin;
-}
-
-void Game::slot_begin(){
-    score=0;
-    for (int i = 0; i < 4 ; i++) {
-        for (int j = 0; j < 4; j++) {
-            board[i][j]=0;
-        }
-    }
-    Text_begin="Start again";
-    begin();
-    int randi1=qrand()%4; // random number between 0 and 3
-    int randj1=qrand()%4;
-    board[randi1][randj1]=2;
-    int randi2=randi1;
-    int randj2=randj1;
-    while (randi2==randi1 && randj2==randj1){
-        randi2=qrand()%4;
-        randj2=qrand()%4;
-    }
-    board[randi2][randj2]=2;
-}
-
 
 QColor Game::tileColor(const int &i, const int &j){
     QColor TileColor;
@@ -138,6 +105,28 @@ QString Game::tileText(const int &i, const int &j){
     }
     return text;
 }
+
+void Game::undo()   // return to the last move
+{
+    if(lastboard){
+        memcpy(board,lastboard,sizeof(lastboard));
+        score=lastscore;
+        score_max=lastscore;
+    }
+}
+
+int Game::getBestScore()
+{
+    if(score_max>memory){return score_max;}
+    else
+        return memory;
+}
+
+QString Game::readStartText()
+{
+    return Text_begin;
+}
+
 
 
 void Game::moveUp()
@@ -368,14 +357,29 @@ void Game::newGame()
     //save();
 }
 
-void Game::undo()   // return to the last move
-{
-    if(lastboard){
-        memcpy(board,lastboard,sizeof(lastboard));
-        score=lastscore;
-        score_max=lastscore;
+void Game::slot_begin(){
+    score=0;
+    for (int i = 0; i < 4 ; i++) {
+        for (int j = 0; j < 4; j++) {
+            board[i][j]=0;
+        }
     }
+    Text_begin="Start again";
+    begin();
+    int randi1=qrand()%4; // random number between 0 and 3
+    int randj1=qrand()%4;
+    board[randi1][randj1]=2;
+    int randi2=randi1;
+    int randj2=randj1;
+    while (randi2==randi1 && randj2==randj1){
+        randi2=qrand()%4;
+        randj2=qrand()%4;
+    }
+    board[randi2][randj2]=2;
 }
+
+
+
 
 //    if(!backState.empty()){
 //        forwardValid = true;
