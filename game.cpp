@@ -136,6 +136,8 @@ QString Game::tileText(const int &i, const int &j){
 
 void Game::moveUp()
 {
+    memcpy(lastboard,board,sizeof(board));
+    lastscore=score;
     // move
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
@@ -163,10 +165,13 @@ void Game::moveUp()
             }
         }
     }
+    newTile();
 }
 
 void Game::moveDown()
 {
+    memcpy(lastboard,board,sizeof(board));
+    lastscore=score;
     // move
     for (int i = 0; i < 4; i++) {
         for (int j = 2; j >= 0; j--) {
@@ -194,10 +199,13 @@ void Game::moveDown()
             }
         }
     }
+    newTile();
 }
 
 void Game::moveLeft()
 {
+    memcpy(lastboard,board,sizeof(board));
+    lastscore=score;
     // move
     for (int j = 0; j < 4; j++) {
         for (int i = 0; i < 4; i++) {
@@ -225,10 +233,13 @@ void Game::moveLeft()
             }
         }
     }
+    newTile();
 }
 
 void Game::moveRight()
 {
+    memcpy(lastboard,board,sizeof(board));
+    lastscore=score;
     // move
     for (int j = 0; j < 4; j++) {
         for (int i = 2; i >= 0; i--) {
@@ -256,6 +267,7 @@ void Game::moveRight()
             }
         }
     }
+    newTile();
 }
 
 void Game::newTile()
@@ -338,15 +350,13 @@ void Game::newGame()
     //save();
 }
 
-//void Game::stepBack()
-//{
-//    if(!forwardValid){
-//        while(!forwardState.empty()){
-//            Board *tmp = forwardState.top();
-//            forwardState.pop();
-//            delete tmp;
-//        }
-//    }
+void Game::undo()
+{
+    if(lastboard){
+        memcpy(board,lastboard,sizeof(lastboard));
+        score=lastscore;
+    }
+}
 
 //    if(!backState.empty()){
 //        forwardValid = true;

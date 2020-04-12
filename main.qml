@@ -22,7 +22,7 @@ Window {
         y: 50
         width: 450
         height: 600
-        anchors.verticalCenterOffset: -34
+        anchors.verticalCenterOffset: -13
         anchors.horizontalCenterOffset: 0
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
@@ -48,27 +48,25 @@ Window {
 
         Keys.onPressed: {
             switch(event.key) {
-            case Qt.Key_Up:
-                command.moveUp();
-                root.updateWindow();
-                break;
-            case Qt.Key_Down:
-                command.moveDown();
-                root.updateWindow();
-                break;
-            case Qt.Key_Left:
-                command.moveLeft();
-                root.updateWindow();
-                break;
-            case Qt.Key_Right:
-                command.moveRight();
-                root.updateWindow();
-                break;
-            default:
-                break;
+                case Qt.Key_Up:
+                    command.moveUp();
+                    root.updateWindow();
+                    break;
+                case Qt.Key_Down:
+                    command.moveDown();
+                    root.updateWindow();
+                    break;
+                case Qt.Key_Left:
+                    command.moveLeft();
+                    root.updateWindow();
+                    break;
+                case Qt.Key_Right:
+                    command.moveRight();
+                    root.updateWindow();
+                    break;
+                default:
+                    break;
             }
-            command.newTile();
-            root.updateWindow();
             if (command.gameOver()===1){
                 gameOverMessageDialog.title = "Game Over"
                 gameOverMessageDialog.text = "Game Over!"
@@ -84,7 +82,7 @@ Window {
 
 
 
-// Principal components
+        // Principal components
         // Row
         Rectangle {
             id: row1
@@ -195,31 +193,36 @@ Window {
             height: 50
             color: "#e9c9c9"
 
-            Text {
-                id: instruction
-                width: 320
-                height: 50
-                color: "#000000"
-                text: qsTr("Join the numbers and get to the 2048 tile!")
-                anchors.verticalCenter: parent.verticalCenter
+            Button {
+                id: undo
+                x: 180
+                y: 0
+                width: 130
+                height: 45
+                text: qsTr("Undo")
                 font.bold: true
-                font.italic: true
-                anchors.left: parent.left
-                anchors.leftMargin: 0
                 font.family: "Arial"
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: 16
+                font.pointSize: 10
+                MouseArea {
+                    id: undoMouseArea
+                    x: 0
+                    y: 0
+                    width: 130
+                    height: 45
+                    onClicked: {
+                        command.undo();
+                        root.updateWindow();
+                    }
+                }
             }
 
             Button {
                 id: newGame
-                width: 120
+                x: 320
+                width: 130
                 height: 45
                 text: qsTr("New Game")
                 font.pointSize: 10
-                anchors.right: parent.right
-                anchors.rightMargin: 0
                 font.bold: true
                 font.family: "Arial"
 
@@ -227,7 +230,7 @@ Window {
                     id: newGameMouseArea
                     x: 0
                     y: 0
-                    width: 120
+                    width: 130
                     height: 45
                     onClicked: {
                         command.slot_begin();
@@ -235,6 +238,7 @@ Window {
                     }
                 }
             }
+
 
 
             //tiles
@@ -291,11 +295,5 @@ Window {
                 root.updateWindow();
             }
         }
-
-
-
     }
-
-
 }
-
