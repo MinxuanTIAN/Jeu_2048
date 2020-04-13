@@ -300,7 +300,7 @@ Window {
             id: gameOverMessageDialog
             visible: false
             onAccepted: {
-                command.newGame();
+                command.slot_begin();
                 root.updateWindow();
             }
         }
@@ -308,7 +308,7 @@ Window {
             id: winMessageDialog
             visible: false
             onAccepted: {
-                command.newGame();
+                command.slot_begin();
                 root.updateWindow();
             }
         }

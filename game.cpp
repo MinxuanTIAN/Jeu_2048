@@ -4,13 +4,7 @@ using namespace std;
 
 Game::Game(QObject *parent): QObject(parent)
 {
-   Text_begin = "New Game";
    begin();
-   for (int i = 0; i < 4; i++){
-       for (int j = 0; j < 4; j++){
-           board[i][j]=0;
-       }
-   }
    // random seed
    qsrand(uint(QTime(0,0,0).secsTo(QTime::currentTime())));
 }
@@ -108,11 +102,9 @@ QString Game::tileText(const int &i, const int &j){
 
 void Game::undo()   // return to the last move
 {
-    if(lastboard){
-        memcpy(board,lastboard,sizeof(lastboard));
-        score=lastscore;
-        score_max=lastscore;
-    }
+    memcpy(board,lastboard,sizeof(lastboard));
+    score=lastscore;
+    score_max=lastscore;
 }
 
 int Game::getBestScore()
@@ -123,12 +115,6 @@ int Game::getBestScore()
     }
     return memory;
 }
-
-QString Game::readStartText()
-{
-    return Text_begin;
-}
-
 
 
 void Game::moveUp()
@@ -311,25 +297,26 @@ int Game::gameOver()
         }
     }
     // verify whether the cells can still fuse
-    if (num==0){
+    if (num!=0){return 0;}
+    else
+    {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 3; j++) {
                if(board[i][j]==board[i][j+1]){
-                 return 0;   //game not over
+                 return 0;   //up or down is possible, game continue
                 }
             }
         }
         for (int j = 0; j < 4; j++) {
-          for (int i = 0; i < 3; i++) {
-               if(board[i][j]==board[i+1][j]){
-                  return 0;  //game not over
+            for (int i = 0; i < 3; i++) {
+                if(board[i][j]==board[i+1][j]){
+                  return 0;  //left or right is  possible, game continue
+                }
             }
-           }
-       }
-      return 1;   //game over
-  }
+        }
+        return 1;
+    }
 }
-
 
 int Game::won()
 {
@@ -345,26 +332,14 @@ int Game::won()
     return 0;
 }
 
-void Game::newGame()
-{
-    Text_begin="New game";
-    begin();
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
-            board[i][j]=0;
-        }
-    }
-}
-
 void Game::slot_begin(){
     score=0;
     for (int i = 0; i < 4 ; i++) {
         for (int j = 0; j < 4; j++) {
             board[i][j]=0;
+            lastboard[i][j]=0;
         }
     }
-    Text_begin="Start again";
-    begin();
     int randi1=qrand()%4; // random number between 0 and 3
     int randj1=qrand()%4;
     board[randi1][randj1]=2;
