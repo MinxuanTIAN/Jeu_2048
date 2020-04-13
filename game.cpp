@@ -117,9 +117,11 @@ void Game::undo()   // return to the last move
 
 int Game::getBestScore()
 {
-    if(score_max>memory){return score_max;}
-    else
-        return memory;
+    if(score_max>memory)
+    {
+        memory=score_max;
+    }
+    return memory;
 }
 
 QString Game::readStartText()
@@ -325,8 +327,6 @@ int Game::gameOver()
            }
        }
       return 1;   //game over
-      memory=score;
-      score=1;
   }
 }
 
@@ -354,7 +354,6 @@ void Game::newGame()
             board[i][j]=0;
         }
     }
-    //save();
 }
 
 void Game::slot_begin(){
@@ -377,31 +376,3 @@ void Game::slot_begin(){
     }
     board[randi2][randj2]=2;
 }
-
-
-
-
-//    if(!backState.empty()){
-//        forwardValid = true;
-//        forwardState.push(board);
-
-//        board = new Board(*(backState.back()));
-//        backState.pop_back();
-//        score = board->getScore();
-//    }
-//    notifyObservers();
-//}
-
-//void Game::stepForward()
-//{
-//    std::cout << "forwarding... " <<forwardState.size()<< std::endl;
-//    if(forwardValid && !forwardState.empty()){
-//        //Board *tmp = new Board(*board);
-//        backState.push_back(board);
-//        //delete board;
-//        board = forwardState.top();
-//        forwardState.pop();
-//        score = board->getScore();
-//    }
-//    notifyObservers();
-//}
